@@ -1,0 +1,91 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="max-w-md w-full space-y-8 p-8 bg-white rounded-lg shadow-md">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Student Profile
+      </h2>
+    </div>
+
+    <form [formGroup]="profileForm" class="mt-8 space-y-6" (ngSubmit)="updateProfile()">
+      <div class="rounded-md shadow-sm -space-y-px">
+        <div>
+          <input name="studentNumber" type="text" required
+                 formControlName="firstName"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="First name">
+        </div>
+        <div>
+          <input name="firstName" type="text" required
+                 formControlName="firstName"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="First name">
+        </div>
+        <div>
+          <input name="lastName" type="text" required
+                 formControlName="lastName"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="Last name">
+        </div>
+        <div>
+          <input name="dateOfBirth" type="text" required
+                 formControlName="dateOfBirth"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 onfocus="(this.type='date')" onblur="(this.type='text')" id="date"
+                 placeholder="Date of birth">
+        </div>
+        <div>
+          <input name="email" type="email" required
+                 formControlName="email"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="Email">
+        </div>
+        <div>
+          <input name="phoneNumber" type="number" required
+                 formControlName="phoneNumber"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900  focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="Phone number">
+        </div>
+
+        <div>
+          <input name="idNumber" type="text"
+                 formControlName="idNumber"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="ID number">
+        </div>
+        <div>
+          <input name="passportNumber" type="text"
+                 formControlName="passportNumber"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="Passport number">
+        </div>
+        <div>
+          <input name="password" type="password" required
+                 formControlName="password"
+                 class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                 placeholder="Password">
+        </div>
+      </div>
+
+      <small class="italic">You can only update your phone number and password</small>
+
+      @if (formStatus === 'success') {
+        <div class="text-green-500">
+        Your profile has been updated successfully.
+        </div>
+      } @else if (formStatus === 'error') {
+        <div class="text-red-500">
+        There was an error updating your profile. Please try again.
+        </div>
+      }
+
+      <div>
+        <button type="submit"
+                [ngClass]="{'cursor-not-allowed': profileForm.invalid}"
+                [disabled]="profileForm.invalid"
+                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
