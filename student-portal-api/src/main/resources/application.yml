@@ -1,12 +1,13 @@
+
 spring:
   application:
     name: student-portal-api
 
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${DATABASE_USERNAME:root}
-    password: ${DATABASE_PASSWORD:password}
-    url: jdbc:mysql://localhost:3306/student_portal?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    url: ${DATABASE_URL}
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -15,3 +16,22 @@ spring:
       hibernate:
         default_schema: public
     show-sql: true
+  mail:
+    protocol: smtp
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+security:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
+    expiration-time: 86400000
+server:
+  port: 8081
