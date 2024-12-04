@@ -1,6 +1,7 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {inject, Injectable, signal} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {of} from 'rxjs';
+import {LoggedInUserSession} from '../../pages/auth/login/login.component';
 
 @Injectable({
   providedIn: 'root',
@@ -8,18 +9,16 @@ import {of} from 'rxjs';
 export class AuthService {
 
   httpClient = inject(HttpClient);
+  userToken = signal<string | null>(null);
 
   constructor() { }
 
   register(registrationData: RegistrationInt) {
-    console.log('registrationData on register', registrationData);
     return this.httpClient.post('http://localhost:8081/api/auth/register', registrationData);
   }
 
   login(loginData: LoginInt) {
-    console.log('loginData on login', loginData);
-    this.setLoggedIn(true);
-    return this.httpClient.post('http://localhost:8081/api/auth/login', loginData);
+    return this.httpClient.post<LoggedInUserSession>('http://localhost:8081/api/auth/login', loginData);
   }
 
   verifyAccount(verificationData: VerificationInt) {
@@ -27,31 +26,18 @@ export class AuthService {
   }
 
   getProfile() {
-    return of(
-      {
-        phoneNumber: '0799997942',
-        firstName: 'Nkonzo',
-        lastName: 'Simelane',
-        dateOfBirth: '1990-01-01',
-        email: 'nkonzosimelane@email.com',
-        idNumber: '9001011234567',
-        passportNumber: 'A1234567',
-        studentNumber: '214224755'
-      }
-    )
+
+    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + this.userToken());
+    return this.httpClient.get(
+      'http://localhost:8081/api/student/profile',
+      { headers }
+    );
   }
 
   updateProfile(profileData: UpdateProfileInt) {
-    return this.httpClient.put('http://localhost:3000/auth/update', profileData);
+    return this.httpClient.put('http://localhost:8081/api/student/profile/update', profileData);
   }
 
-  isLoggedIn(): boolean {
-    return !!sessionStorage.getItem('isLoggedIn');
-  }
-
-  setLoggedIn(status: boolean) {
-    sessionStorage.setItem('isLoggedIn', status ? 'true' : 'false');
-  }
 }
 
 export interface LoginInt {

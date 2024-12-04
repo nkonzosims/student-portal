@@ -9,11 +9,11 @@ import {ProjectsComponent} from './pages/projects/projects.component';
 export const routes: Routes = [
   {
     path: '',
-    component: RegistrationComponent
+    component: LoginComponent
   },
   {
-    path: 'login',
-    component: LoginComponent
+    path: 'register',
+    component: RegistrationComponent
   },
   {
     path: 'dashboard',
@@ -30,4 +30,8 @@ export const routes: Routes = [
     component: ProjectsComponent,
     canActivate: [AuthGuard],
   },
+  {
+    path: '**',
+    redirectTo: ''
+  }
 ];

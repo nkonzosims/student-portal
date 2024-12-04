@@ -65,8 +65,6 @@ export class RegistrationComponent implements OnInit{
     }
 
     this.authService.verifyAccount(verificationData).subscribe((response: any) => {
-      console.log('Verification response', response);
-      this.authService.setLoggedIn(true);
       this.router.navigate(['/dashboard']);
 
     }, (error: any) => {

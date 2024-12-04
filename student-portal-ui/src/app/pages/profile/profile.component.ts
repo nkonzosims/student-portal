@@ -36,10 +36,15 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // Call the service to get the profile data
-    this.authService.getProfile().subscribe(profile => {
-      this.profileForm.patchValue(profile);
-    });
+
+    this.authService.getProfile().pipe()
+      .subscribe(
+        (profile: any) => {
+          console.log('User profile found *** ', profile);
+          this.profileForm.patchValue(profile);
+        }, (error: any) => {
+          console.log('Error occurred getting user profile')
+        });
 
     this.profileForm.valueChanges.subscribe(() => {
       this.formStatus = 'default';
@@ -52,12 +57,11 @@ export class ProfileComponent implements OnInit {
         .pipe(
           tap(
             response => {
+              this.profileForm.patchValue(response);
               this.formStatus = 'success';
-              console.log('Profile update successful', response);
             },
             error => {
               this.formStatus = 'error';
-              console.error('Profile update failed', error);
             }
           )
       ).subscribe();
